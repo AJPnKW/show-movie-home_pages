@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alien: Earth — Episodes</title>
+<style>
+  :root{
+    --bg:#0a0f16; --ink:#eef4ff; --muted:#a9b7cc; --grid:#203044;
+    --card:#101a28;
+    --headerA:#0e2a47; --headerB:#0a1b2e;          /* season header gradient */
+    --showA:#0b2138;  --showB:#081624;             /* show header gradient */
+    --thead:#0b1e33;
+    --zebra1:#0f1723; --zebra2:#121c2a;
+    --btn:#0f2844; --btn-border:#2c568b; --btn-hover:#123255; --btn-glow:#4aa8ff55;
+    --pill-vid:#0c2e40; --pill-vid-b:#0f4260;
+    --pill-nun:#0d2f25; --pill-nun-b:#14523f;
+    --badge:#0c1a2a;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,system-ui,Roboto,Arial,sans-serif}
+  .wrap{max-width:1150px;margin:28px auto;padding:0 16px}
+
+  /* Generic chips & buttons */
+  .badge{display:inline-block;background:var(--badge);border:1px solid var(--grid);
+         padding:2px 8px;border-radius:999px;font-size:.85rem;color:var(--muted)}
+  .btn{
+    background:var(--btn); border:1px solid var(--btn-border); color:var(--ink);
+    padding:8px 14px;border-radius:10px;text-decoration:none;font-weight:700;
+    box-shadow:0 0 0 0 var(--btn-glow);
+    transition:box-shadow .15s ease, transform .05s ease, background .15s ease, border-color .15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:hover{background:var(--btn-hover);box-shadow:0 0 0 3px var(--btn-glow)}
+  .btn:active{transform:translateY(1px)}
+  .chip{background:#0d2136;border:1px solid #224567;border-radius:999px;padding:6px 10px;color:#d8e7ff;font-weight:700}
+
+  /* SHOW HEADER (new) */
+  .show-card{background:var(--card);border:1px solid var(--grid);border-radius:16px;padding:14px;margin:14px 0}
+  .show-head{
+    display:grid; gap:14px; align-items:center;
+    padding:14px; border-radius:12px; border:1px solid #173655;
+    background:linear-gradient(180deg,var(--showA),var(--showB));
+    grid-template-columns:140px 1fr auto; /* poster | title/meta | actions */
+  }
+  .poster{
+    width:140px; aspect-ratio:2/3; border-radius:10px; object-fit:cover;
+    border:1px solid #1f3b58; box-shadow:0 8px 20px #0008; background:#0b1420;
+  }
+  .show-title{margin:0; font-size:clamp(1.4rem,3.5vw,1.9rem); letter-spacing:.2px}
+  .show-sub{color:var(--muted); margin-top:6px}
+  .show-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+  /* Responsive show header */
+  @media (max-width:780px){
+    .show-head{grid-template-columns:1fr; text-align:center}
+    .poster{width:min(48vw,240px); margin:0 auto}
+    .show-actions{justify-content:center}
+  }
+
+  /* SEASON HEADER */
+  .season-card{background:var(--card);border:1px solid var(--grid);border-radius:16px;padding:14px;margin:14px 0}
+  .season-head{
+    display:grid; gap:12px; align-items:start;
+    padding:12px;border-radius:12px;
+    background:linear-gradient(180deg,var(--headerA),var(--headerB));
+    border:1px solid #173655;
+    grid-template-columns:1fr auto;  /* title/summary | chips */
+  }
+  .season-title{font-weight:900;font-size:1.15rem;margin:0}
+  .season-summary{
+    color:#d7e6ff; line-height:1.5; margin-top:4px;
+    hyphens:auto; overflow-wrap:anywhere; word-break:normal;
+    max-width:75ch;
+  }
+  .season-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+
+  @media (max-width:780px){
+    .season-head{grid-template-columns:1fr; text-align:left}
+    .season-badges{justify-content:center}
+    .season-summary{max-width:65ch; margin-left:auto; margin-right:auto; font-size:1rem}
+  }
+
+  /* EPISODES TABLE */
+  table{width:100%;border-collapse:collapse;margin-top:12px;border:1px solid var(--grid);border-radius:12px;overflow:hidden}
+  thead th{
+    background:var(--thead); color:#cfe3ff; text-transform:uppercase;letter-spacing:.04em;
+    font-weight:800;text-align:left;padding:10px;border-bottom:1px solid var(--grid)
+  }
+  thead th.col-links{ text-align:right; }
+  tbody td{padding:12px 10px;border-top:1px solid var(--grid);vertical-align:top}
+  tbody tr:nth-child(odd){background:var(--zebra1)}
+  tbody tr:nth-child(even){background:var(--zebra2)}
+  .col-num{width:38px;font-variant-numeric:tabular-nums;color:#9fb6d6}
+  .col-thumb{width:120px}
+  .thumb{
+    width:110px; height:auto; aspect-ratio:16/9; object-fit:cover;
+    border-radius:10px; border:1px solid #1f3b58; background:#0b1420;
+    box-shadow:0 8px 18px #0006;
+  }
+  .col-watch{width:110px}
+  .col-links{width:190px;white-space:nowrap; text-align:right;}
+  .epi-title{font-weight:800}
+  .epi-meta{color:#b7c8e0;font-size:.92rem;margin:2px 0 6px}
+  .epi-over{color:#d6e2f3;font-size:.96rem; hyphens:auto; overflow-wrap:anywhere}
+  .checkbox{display:flex;align-items:center;gap:8px}
+  input[type="checkbox"]{width:18px;height:18px}
+
+  /* Action pills */
+  .pill{
+    display:inline-block;margin-left:8px;margin-bottom:4px;
+    border-radius:9px;padding:8px 12px;text-decoration:none;color:#f2fbff;font-weight:800;
+    border:1px solid transparent; transition:filter .15s ease, transform .05s ease, box-shadow .15s ease;
+    box-shadow:0 0 0 0 transparent;
+  }
+  .pill:first-child{ margin-left:0; }
+  .pill.vid{background:var(--pill-vid);border-color:var(--pill-vid-b)}
+  .pill.nun{background:var(--pill-nun);border-color:var(--pill-nun-b)}
+  .pill:hover{filter:brightness(1.12);box-shadow:0 0 0 3px #ffffff22}
+  .pill:active{transform:translateY(1px)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- SHOW HEADER -->
+  <section class="show-card">
+    <div class="show-head">
+      <img id="poster" class="poster" alt="Show poster">
+      <div class="show-text">
+        <h1 class="show-title" id="show-title">Alien: Earth <span class="badge" id="tmdb-badge"></span></h1>
+        <div class="show-sub" id="show-sub">TMDB • Nunflix quick links below</div>
+      </div>
+      <div class="show-actions">
+        <a id="btn-nunflix" class="btn" target="_blank" rel="noopener">nunflix</a>
+        <a id="btn-tmdb"   class="btn" target="_blank" rel="noopener">TMDB</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEASON HEADER -->
+  <section class="season-card">
+    <div class="season-head">
+      <div>
+        <h2 class="season-title" id="season-name">Season 1</h2>
+        <div class="season-summary" id="season-summary"></div>
+      </div>
+      <div class="season-badges">
+        <span class="chip" id="chip-score">72%</span>
+        <span class="chip" id="chip-premiere">premiered on August 12, 2025</span>
+      </div>
+    </div>
+
+    <!-- tiny line under season header for separation -->
+    <div style="height:8px"></div>
+
+    <!-- EPISODES -->
+    <table>
+      <thead>
+        <tr>
+          <th class="col-num">#</th>
+          <th class="col-thumb" aria-label="Episode still"></th>
+          <th>Episode</th>
+          <th class="col-watch">Watched</th>
+          <th class="col-links">Watch</th>
+        </tr>
+      </thead>
+      <tbody id="ep-body"></tbody>
+    </table>
+  </section>
+
+</div>
+
+<script>
+/* ===================== CONFIG (edit to reuse) ===================== */
+const CONFIG = {
+  showTitle: "Alien: Earth",
+  showId: 157239,
+  scorePct: 72,
+  premiereDateText: "August 12, 2025",
+  seasonYear: 2025,
+  seasons: [{ season: 1, episodeCount: 8 }],
+  base: {
+    vidsrc: "https://vidsrc.net/embed/tv",
+    nunflix: "https://nunflix.org/watch/tv",
+    tmdb: "https://www.themoviedb.org/tv"
+  },
+  images: {
+    /* Show poster (stable). Replace with TMDB poster if you prefer. */
+    posterUrl: "https://upload.wikimedia.org/wikipedia/en/0/08/Alien_Earth_%282025%29_poster.jpg",
+    tmdbImageBase: "https://image.tmdb.org/t/p/",
+    stillSize: "w300"
+  },
+  api: {
+    /* Optional: pass ?tmdb_key=... (v3) or ?tmdb_token=... (v4 bearer) to auto-hydrate stills. */
+    tmdbV3: "",
+    tmdbV4: ""
+  },
+  seasonOverview:
+    "As members of the crash recovery crew search for survivors among the wreckage of a mysterious crashed space vessel, they encounter mysterious predatory life forms more terrifying than they could have ever imagined. With this new threat unlocked, the search crew must fight for survival and what they choose to do with this discovery could change planet Earth as they know it.",
+  /* Episode text metadata (stills fetched automatically if TMDB key provided) */
+  episodes: {
+    "1-1": { title:"Neverland", air:"August 12, 2025", runtime:"1h 5m",
+             over:"When a spaceship crash-lands on Earth, a sister searches for her brother amidst an unexpected alien threat." },
+    "1-2": { title:"Mr. October", air:"August 12, 2025", runtime:"56m",
+             over:"Tensions rise between rival corporations, a reunion takes place, and a secret is revealed." },
+    "1-3": { title:"Metamorphosis", air:"August 19, 2025", runtime:"55m",
+             over:"The team returns home with unexpected cargo. An unsettling experiment occurs, and a new talent is discovered." },
+    "1-4": { title:"Observation", air:"August 26, 2025", runtime:"1h",
+             over:"An unexpected connection is formed while a covert plot puts everyone in danger." },
+    "1-5": { title:"In Space, No One...", air:"September 2, 2025", runtime:"1h 6m",
+             over:"An outer-space vessel in peril leads to a dangerous reckoning." },
+    "1-6": { title:"The Fly", air:"September 9, 2025", runtime:"58m",
+             over:"Enemies confront each other, a dangerous plan unfolds, and curiosity leads to dire consequences." },
+    "1-7": { title:"Emergence", air:"September 16, 2025", runtime:"46m",
+             over:"An escape plan is hatched leading to a breaking of factions, betrayals, and a shocking confrontation." },
+    "1-8": { title:"The Real Monsters", air:"September 23, 2025", runtime:"48m",
+             over:"Season Finale. A new power dynamic emerges." }
+  }
+};
+/* ================== END CONFIG ================== */
+
+const el = {
+  poster: document.getElementById("poster"),
+  showTitle: document.getElementById("show-title"),
+  tmdbBadge: document.getElementById("tmdb-badge"),
+  showSub: document.getElementById("show-sub"),
+  seasonName: document.getElementById("season-name"),
+  seasonSummary: document.getElementById("season-summary"),
+  chipScore: document.getElementById("chip-score"),
+  chipPrem: document.getElementById("chip-premiere"),
+  epBody: document.getElementById("ep-body"),
+  btnTMDB: document.getElementById("btn-tmdb"),
+  btnNun: document.getElementById("btn-nunflix")
+};
+
+const urlTMDBShow = id => `${CONFIG.base.tmdb}/${id}`;
+const urlNunShow  = id => `${CONFIG.base.nunflix}/${id}`;
+const urlVidsrc   = (id,s,e) => `${CONFIG.base.vidsrc}/${id}/${s}/${e}`;
+const urlNunEp    = (id,s,e) => `${CONFIG.base.nunflix}/${id}/${s}/${e}`;
+const storageKey  = (s,e) => `watched-${CONFIG.showId}-${s}-${e}`;
+
+/* Accept keys via querystring (handy on phone): ?tmdb_key=... or ?tmdb_token=... */
+(function ingestQueryKeys(){
+  const q = new URLSearchParams(location.search);
+  if(q.get("tmdb_key"))   CONFIG.api.tmdbV3 = q.get("tmdb_key");
+  if(q.get("tmdb_token")) CONFIG.api.tmdbV4 = q.get("tmdb_token");
+})();
+
+/* Hide broken images */
+function hideOnError(img){ img.addEventListener("error",()=>{ img.style.display="none"; }); }
+
+/* SHOW header */
+function renderShowHeader(){
+  el.poster.src = CONFIG.images.posterUrl; hideOnError(el.poster);
+  el.showTitle.firstChild.nodeValue = `${CONFIG.showTitle} `;
+  el.tmdbBadge.textContent = `TMDB ID: ${CONFIG.showId}`;
+  el.showSub.textContent = `Season ${CONFIG.seasons[0].season}: ${CONFIG.seasonYear} • ${CONFIG.seasons[0].episodeCount} Episodes`;
+  el.btnTMDB.href = urlTMDBShow(CONFIG.showId);
+  el.btnNun.href  = urlNunShow(CONFIG.showId);
+}
+
+/* SEASON header */
+function renderSeasonHeader(){
+  const s0 = CONFIG.seasons[0];
+  el.seasonName.textContent = `Season ${s0.season}`;
+  el.seasonSummary.textContent = CONFIG.seasonOverview;
+  el.chipScore.textContent = `${CONFIG.scorePct}%`;
+  el.chipPrem.textContent = `premiered on ${CONFIG.premiereDateText}`;
+}
+
+/* Build episode row (stills hydrated later if key provided) */
+function addEpisodeRow(season, eNum){
+  const meta = CONFIG.episodes[`${season}-${eNum}`] || { title:"—", air:"", runtime:"", over:"" };
+
+  const tr = document.createElement("tr");
+
+  const tdNum = document.createElement("td"); tdNum.className="col-num"; tdNum.textContent=eNum; tr.appendChild(tdNum);
+
+  const tdThumb = document.createElement("td"); tdThumb.className="col-thumb"; tr.appendChild(tdThumb);
+
+  const tdTitle = document.createElement("td");
+  const t = document.createElement("div"); t.className="epi-title"; t.textContent=meta.title;
+  const m = document.createElement("div"); m.className="epi-meta"; m.textContent=[meta.air, meta.runtime].filter(Boolean).join(" • ");
+  const o = document.createElement("div"); o.className="epi-over"; o.textContent=meta.over;
+  tdTitle.appendChild(t); tdTitle.appendChild(m); tdTitle.appendChild(o);
+  tr.appendChild(tdTitle);
+
+  const tdChk = document.createElement("td"); tdChk.className="checkbox";
+  const cb = document.createElement("input"); cb.type="checkbox";
+  const k = storageKey(season,eNum);
+  cb.checked = localStorage.getItem(k)==="1"; cb.addEventListener("change",()=>localStorage.setItem(k,cb.checked?"1":"0"));
+  tdChk.appendChild(cb); tr.appendChild(tdChk);
+
+  const tdLinks = document.createElement("td"); tdLinks.className="col-links";
+  const v = document.createElement("a"); v.href=urlVidsrc(CONFIG.showId,season,eNum); v.target="_blank"; v.rel="noopener"; v.textContent="vidsrc"; v.className="pill vid";
+  const n = document.createElement("a"); n.href=urlNunEp(CONFIG.showId,season,eNum); n.target="_blank"; n.rel="noopener"; n.textContent="nunflix"; n.className="pill nun";
+  tdLinks.appendChild(v); tdLinks.appendChild(n); tr.appendChild(tdLinks);
+
+  el.epBody.appendChild(tr);
+}
+
+/* Render episode skeleton quickly */
+function renderEpisodeTable(){
+  const s = CONFIG.seasons[0].season;
+  for(let e=1; e<=CONFIG.seasons[0].episodeCount; e++) addEpisodeRow(s, e);
+}
+
+/* ===== Auto-hydrate episode stills via TMDB (optional key) ===== */
+async function fetchTMDB(endpoint, init={}){
+  const { tmdbV3, tmdbV4 } = CONFIG.api;
+  const base = `https://api.themoviedb.org/3${endpoint}`;
+  const headers = init.headers ? {...init.headers} : {};
+  if (tmdbV4){
+    headers["Authorization"] = `Bearer ${tmdbV4}`;
+  } else if (tmdbV3){
+    const u = new URL(base); u.searchParams.set("api_key", tmdbV3);
+    return fetch(u.toString(), init).then(r=>r.ok?r.json():Promise.reject(r));
+  } else { return Promise.reject(new Error("No TMDB key")); }
+  headers["Accept"] = "application/json;charset=utf-8";
+  return fetch(base, { ...init, headers }).then(r=>r.ok?r.json():Promise.reject(r));
+}
+
+async function hydrateStills(){
+  const haveKey = CONFIG.api.tmdbV3 || CONFIG.api.tmdbV4;
+  if (!haveKey) return;
+  const season = CONFIG.seasons[0].season;
+  for (let e=1; e<=CONFIG.seasons[0].episodeCount; e++){
+    try{
+      const data = await fetchTMDB(`/tv/${CONFIG.showId}/season/${season}/episode/${e}/images`);
+      const path = data && Array.isArray(data.stills) && data.stills[0] && data.stills[0].file_path;
+      if (!path) continue;
+      const row = el.epBody.children[e-1];
+      const tdThumb = row.children[1];
+      tdThumb.innerHTML = "";
+      const img = document.createElement("img");
+      img.className = "thumb";
+      img.src = `${CONFIG.images.tmdbImageBase}${CONFIG.images.stillSize}${path}`;
+      img.alt = `${CONFIG.showTitle} — S${season}E${e} still`;
+      hideOnError(img);
+      tdThumb.appendChild(img);
+    }catch(_){/* tolerate per-episode failures */}
+  }
+}
+
+/* Init */
+(function init(){
+  renderShowHeader();
+  renderSeasonHeader();
+  renderEpisodeTable();
+  hydrateStills();
+})();
+</script>
+</body>
+</html>
