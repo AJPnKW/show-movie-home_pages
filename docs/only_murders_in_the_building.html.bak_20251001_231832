@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html lang=""en"">
+<head>
+  <meta charset=""utf-8"" />
+  <title>Only Murders in the Building â€” S01</title>
+  <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />
+  <link rel=""stylesheet"" href=""./assets/css/style.css"" />
+</head>
+<body>
+  <main class=""container"">
+    <a class=""inline"" href=""./index.html"">â† Back</a>
+    <div class=""header"">
+      <img alt=""Poster"" src=""https://image.tmdb.org/t/p/w500/4XddcRDtnNjYM5r9G1K2wQXd3QQ.jpg"" />
+      <div>
+        <h1>Only Murders in the Building <span class=""badge"">S01 â€¢ 2021 â€¢ TMDB: 107113</span></h1>
+        <p>A trio obsessed with true crime podcasts find themselves wrapped up in a murder in their own apartment building.</p>
+        <p>
+          Watch:
+          <a class=""inline"" href=""https://nunflix.org/watch/tv/107113/1/1"">Nunflix</a> Â·
+          <a class=""inline"" href=""https://vidsrc.net/embed/tv?tmdb=107113&season=1"">VidSrc</a> Â·
+          <a class=""inline"" href=""https://www.themoviedb.org/tv/107113"">TMDB</a>
+        </p>
+      </div>
+    </div>
+
+    <div class=""grid"">
+      <section>
+        <h2>Episodes</h2>
+        <table class=""table"">
+          <thead><tr><th>#</th><th>Title</th><th>Links</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>S01E01</td>
+              <td>True Crime</td>
+              <td>
+                <a class=""inline"" href=""https://nunflix.org/watch/tv/107113/1/1"">Nunflix</a> Â·
+                <a class=""inline"" href=""https://vidsrc.net/embed/tv?tmdb=107113&season=1&episode=1"">VidSrc</a> Â·
+                <a class=""inline"" href=""https://image.tmdb.org/t/p/w300/eK1l0iG6xXQ8bR9KZ1G1Eo2O9oP.jpg"">Still</a>
+              </td>
+            </tr>
+            <tr>
+              <td>S01E02</td>
+              <td>Who Is Tim Kono?</td>
+              <td>
+                <a class=""inline"" href=""https://nunflix.org/watch/tv/107113/1/2"">Nunflix</a> Â·
+                <a class=""inline"" href=""https://vidsrc.net/embed/tv?tmdb=107113&season=1&episode=2"">VidSrc</a> Â·
+                <a class=""inline"" href=""https://image.tmdb.org/t/p/w300/9p5iYxKqf8D4gM2N0X3m7Qq2gqP.jpg"">Still</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Episode Stills</h3>
+        <div class=""stills"">
+          <img alt=""E01 still"" src=""https://image.tmdb.org/t/p/w300/eK1l0iG6xXQ8bR9KZ1G1Eo2O9oP.jpg"" />
+          <img alt=""E02 still"" src=""https://image.tmdb.org/t/p/w300/9p5iYxKqf8D4gM2N0X3m7Qq2gqP.jpg"" />
+        </div>
+      </section>
+
+      <aside>
+        <h2>Season 1</h2>
+        <p>10 episodes Â· Comedy, Crime, Mystery.</p>
+        <p><strong>Open externally:</strong><br/>
+           <a class=""inline"" href=""https://ajpnkw.github.io/show-movie-home_pages/index.html"">Home</a><br/>
+           <a class=""inline"" href=""https://www.themoviedb.org/tv/107113/season/1"">TMDB Season</a>
+        </p>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

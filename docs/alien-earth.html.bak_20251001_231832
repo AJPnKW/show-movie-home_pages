@@ -1,13 +1,9 @@
-﻿---
-layout: default
-title: Alien: Earth â€” Episodes
----
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Alien: Earth â€” Episodes</title>
+<title>Alien: Earth — Episodes</title>
 <style>
   :root{
     --bg:#0a0f16; --ink:#eef4ff; --muted:#a9b7cc; --grid:#203044;
@@ -132,7 +128,7 @@ title: Alien: Earth â€” Episodes
       <img id="poster" class="poster" alt="Show poster">
       <div class="show-text">
         <h1 class="show-title" id="show-title">Alien: Earth <span class="badge" id="tmdb-badge"></span></h1>
-        <div class="show-sub" id="show-sub">TMDB â€¢ Nunflix quick links below</div>
+        <div class="show-sub" id="show-sub">TMDB • Nunflix quick links below</div>
       </div>
       <div class="show-actions">
         <a id="btn-nunflix" class="btn" target="_blank" rel="noopener">nunflix</a>
@@ -258,7 +254,7 @@ function renderShowHeader(){
   el.poster.src = CONFIG.images.posterUrl; hideOnError(el.poster);
   el.showTitle.firstChild.nodeValue = `${CONFIG.showTitle} `;
   el.tmdbBadge.textContent = `TMDB ID: ${CONFIG.showId}`;
-  el.showSub.textContent = `Season ${CONFIG.seasons[0].season}: ${CONFIG.seasonYear} â€¢ ${CONFIG.seasons[0].episodeCount} Episodes`;
+  el.showSub.textContent = `Season ${CONFIG.seasons[0].season}: ${CONFIG.seasonYear} • ${CONFIG.seasons[0].episodeCount} Episodes`;
   el.btnTMDB.href = urlTMDBShow(CONFIG.showId);
   el.btnNun.href  = urlNunShow(CONFIG.showId);
 }
@@ -274,7 +270,7 @@ function renderSeasonHeader(){
 
 /* Build episode row (stills hydrated later if key provided) */
 function addEpisodeRow(season, eNum){
-  const meta = CONFIG.episodes[`${season}-${eNum}`] || { title:"â€”", air:"", runtime:"", over:"" };
+  const meta = CONFIG.episodes[`${season}-${eNum}`] || { title:"—", air:"", runtime:"", over:"" };
 
   const tr = document.createElement("tr");
 
@@ -284,7 +280,7 @@ function addEpisodeRow(season, eNum){
 
   const tdTitle = document.createElement("td");
   const t = document.createElement("div"); t.className="epi-title"; t.textContent=meta.title;
-  const m = document.createElement("div"); m.className="epi-meta"; m.textContent=[meta.air, meta.runtime].filter(Boolean).join(" â€¢ ");
+  const m = document.createElement("div"); m.className="epi-meta"; m.textContent=[meta.air, meta.runtime].filter(Boolean).join(" • ");
   const o = document.createElement("div"); o.className="epi-over"; o.textContent=meta.over;
   tdTitle.appendChild(t); tdTitle.appendChild(m); tdTitle.appendChild(o);
   tr.appendChild(tdTitle);
@@ -339,7 +335,7 @@ async function hydrateStills(){
       const img = document.createElement("img");
       img.className = "thumb";
       img.src = `${CONFIG.images.tmdbImageBase}${CONFIG.images.stillSize}${path}`;
-      img.alt = `${CONFIG.showTitle} â€” S${season}E${e} still`;
+      img.alt = `${CONFIG.showTitle} — S${season}E${e} still`;
       hideOnError(img);
       tdThumb.appendChild(img);
     }catch(_){/* tolerate per-episode failures */}
@@ -356,4 +352,3 @@ async function hydrateStills(){
 </script>
 </body>
 </html>
-
