@@ -1,0 +1,17 @@
+﻿:root { --bg:#0b0b0d; --card:#16161a; --text:#eaeaea; --muted:#a0a0a0; --accent:#4da3ff; }
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Arial}
+.container{max-width:1080px;margin:32px auto;padding:0 16px}
+h1{margin:0 0 16px}
+.card-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card-list a{display:block;background:var(--card);padding:14px 16px;border-radius:14px;text-decoration:none;color:var(--text);border:1px solid #222}
+.card-list a:hover{outline:2px solid var(--accent)}
+.header{display:grid;grid-template-columns:140px 1fr;gap:16px;margin:12px 0 20px}
+.header img{width:140px;height:auto;border-radius:12px;border:1px solid #222}
+.grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
+.table{width:100%;border-collapse:separate;border-spacing:0}
+.table th,.table td{padding:10px 12px;border-bottom:1px solid #222}
+.table tr:nth-child(even){background:#131318}
+.badge{font-size:12px;color:var(--muted)}
+a.inline{color:var(--accent);text-decoration:none}
+.stills{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.stills img{width:100%;height:auto;border-radius:8px;border:1px solid #222}
